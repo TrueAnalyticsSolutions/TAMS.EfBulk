@@ -14,7 +14,7 @@ using System.Text;
 
 namespace TAMS.EfBulk
 {
-    public static class SqlHelper
+    public static class BulkExtensions
     {
         public static string GetDbSetTableName<T>(this DbContext context) where T : class
         {
