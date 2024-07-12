@@ -4,54 +4,88 @@
         <name>TAMS.EfBulk</name>
     </assembly>
     <members>
-        <member name="M:TAMS.EfBulk.SqlHelper.CreateDataTable``1(Microsoft.EntityFrameworkCore.DbContext)">
+        <member name="M:TAMS.EfBulk.BulkExtensions.GetDbSetTableName``1(Microsoft.EntityFrameworkCore.DbContext)">
             <summary>
-            Creates a blank <see cref="T:System.Data.DataTable"/> from the provided <see cref="!:DbSet"/> entity type.
+            Gets the table name of a DbSet entity type from the DbContext.
             </summary>
-            <typeparam name="T">Reference to the entity type for a <see cref="!:DbSet"/> in the <paramref name="context"/>.</typeparam>
-            <param name="context">Reference to the <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
-            <returns>Blank <see cref="T:System.Data.DataTable"/> with the schema copied from the relavent <see cref="!:DbSet"/> of type <typeparamref name="T"/>.</returns>
+            <typeparam name="T">The entity type of the DbSet.</typeparam>
+            <param name="context">The DbContext instance.</param>
+            <returns>The table name of the DbSet entity type.</returns>
         </member>
-        <member name="M:TAMS.EfBulk.SqlHelper.CreateOfflineDataTable``1(Microsoft.EntityFrameworkCore.DbContext)">
+        <member name="M:TAMS.EfBulk.BulkExtensions.GetConnection(Microsoft.EntityFrameworkCore.DbContext)">
             <summary>
-            Creates a <see cref="T:System.Data.DataTable"/> from the provided <see cref="!:DbSet"/> entity type and fills it with records from the database.
+            Gets the SqlConnection instance from the DbContext.
             </summary>
-            <typeparam name="T">Reference to the entity type for a <see cref="!:DbSet"/> in the <paramref name="context"/>.</typeparam>
-            <param name="context">Reference to the <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
-            <returns>Blank <see cref="T:System.Data.DataTable"/> with the schema copied from the relavent <see cref="!:DbSet"/> of type <typeparamref name="T"/>.</returns>
+            <param name="context">The DbContext instance.</param>
+            <returns>The SqlConnection instance.</returns>
         </member>
-        <member name="M:TAMS.EfBulk.SqlHelper.BulkMerge``1(Microsoft.EntityFrameworkCore.DbContext,System.Data.DataTable,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Data.SqlClient.SqlRowsCopiedEventHandler)">
+        <member name="M:TAMS.EfBulk.BulkExtensions.CreateDataTableAsync``1(Microsoft.EntityFrameworkCore.DbContext)">
             <summary>
-            Performs a SQL <c>MERGE</c> using the provided <paramref name="table"/>.
+            Creates a blank DataTable from the provided DbSet entity type.
             </summary>
-            <typeparam name="T">Reference to the underlying entity type of the <paramref name="table"/>.</typeparam>
-            <param name="context"></param>
-            <param name="table"></param>
-            <param name="allowInsert"></param>
-            <param name="allowDelete"></param>
-            <param name="batchSize"></param>
-            <param name="timeout"></param>
-            <param name="sqlRowsCopiedEventHandler"></param>
+            <typeparam name="T">Reference to the entity type for a DbSet in the context.</typeparam>
+            <param name="context">Reference to the DbContext.</param>
+            <returns>Blank DataTable with the schema copied from the relevant DbSet of type T.</returns>
         </member>
-        <member name="M:TAMS.EfBulk.SqlHelper.BuildCreateTableScript(System.Data.DataTable,System.String,System.String)">
+        <member name="M:TAMS.EfBulk.BulkExtensions.ApplyAutoIncrementFromDatabaseAsync(System.Data.DataTable,System.String,System.Data.SqlClient.SqlConnection)">
             <summary>
-            Creates a SQL script that creates a table where the columns matches that of the specified DataTable.
+            Applies auto-increment settings from the database to the DataTable.
+            </summary>
+            <param name="table">The DataTable instance.</param>
+            <param name="tableName">The table name.</param>
+            <param name="cnn">The SqlConnection instance.</param>
+        </member>
+        <member name="M:TAMS.EfBulk.BulkExtensions.CreateOfflineDataTableAsync``1(Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+            Creates a DataTable from the provided DbSet entity type and fills it with records from the database.
+            </summary>
+            <typeparam name="T">Reference to the entity type for a DbSet in the context.</typeparam>
+            <param name="context">Reference to the DbContext.</param>
+            <returns>Blank DataTable with the schema copied from the relevant DbSet of type T.</returns>
+        </member>
+        <member name="M:TAMS.EfBulk.BulkExtensions.BulkInsertAsync``1(Microsoft.EntityFrameworkCore.DbContext,System.Data.DataTable,System.Int32,System.Int32,System.Data.SqlClient.SqlRowsCopiedEventHandler)">
+            <summary>
+            Performs a bulk insert operation using the provided DataTable.
+            </summary>
+            <typeparam name="T">Reference to the entity type for a DbSet in the context.</typeparam>
+            <param name="context">Reference to the DbContext.</param>
+            <param name="table">The DataTable containing the data to insert.</param>
+            <param name="batchSize">The number of rows to insert in each batch. Default is 0 (all rows in one batch).</param>
+            <param name="timeout">The timeout period for the bulk copy operation. Default is 30 seconds.</param>
+            <param name="sqlRowsCopiedEventHandler">The event handler for SQL rows copied event.</param>
+        </member>
+        <member name="M:TAMS.EfBulk.BulkExtensions.BulkMergeAsync``1(Microsoft.EntityFrameworkCore.DbContext,System.Data.DataTable,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Data.SqlClient.SqlRowsCopiedEventHandler)">
+            <summary>
+            Performs a SQL MERGE operation using the provided DataTable.
+            </summary>
+            <typeparam name="T">Reference to the underlying entity type of the table.</typeparam>
+            <param name="context">The DbContext instance.</param>
+            <param name="table">The DataTable containing the data to merge.</param>
+            <param name="allowInsert">Indicates whether insert operations are allowed.</param>
+            <param name="allowDelete">Indicates whether delete operations are allowed.</param>
+            <param name="batchSize">The number of rows to process in each batch. Default is 0 (all rows in one batch).</param>
+            <param name="timeout">The timeout period for the merge operation. Default is 30 seconds.</param>
+            <param name="sqlRowsCopiedEventHandler">The event handler for SQL rows copied event.</param>
+        </member>
+        <member name="M:TAMS.EfBulk.BulkExtensions.BuildCreateTableScript(System.Data.DataTable,System.String,System.String)">
+            <summary>
+            Creates a SQL script that creates a table where the columns match that of the specified DataTable.
             </summary>
         </member>
-        <member name="M:TAMS.EfBulk.SqlHelper.BuildMergeTableScript(System.Data.DataTable,System.String,System.Boolean,System.Boolean)">
+        <member name="M:TAMS.EfBulk.BulkExtensions.BuildMergeTableScript(System.Data.DataTable,System.String,System.Boolean,System.Boolean)">
             <summary>
             Creates a SQL script that merges one table into another where the schema is the same for both tables.
             </summary>
-            <param name="Table"><see cref="T:System.Data.DataTable"/> containin the update information and the reference to the target table by <see cref="P:System.Data.DataTable.TableName"/>.</param>
+            <param name="Table">DataTable containing the update information and the reference to the target table by DataTable.TableName.</param>
             <param name="tableSourceName">Name of the source table.</param>
-            <returns></returns>
+            <returns>The SQL merge script.</returns>
         </member>
-        <member name="M:TAMS.EfBulk.SqlHelper.BuildKeysScript(System.Data.DataTable,System.String)">
+        <member name="M:TAMS.EfBulk.BulkExtensions.BuildKeysScript(System.Data.DataTable,System.String)">
             <summary>
             Builds an ALTER TABLE script that adds a primary or composite key to a table that already exists.
             </summary>
         </member>
-        <member name="M:TAMS.EfBulk.SqlHelper.GetSQLTypeAsString(System.Data.DataColumn)">
+        <member name="M:TAMS.EfBulk.BulkExtensions.GetSQLTypeAsString(System.Data.DataColumn)">
             <summary>
             Returns the SQL data type equivalent, as a string for use in SQL script generation methods.
             </summary>
