@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAMS.EfBulk", "TAMS.EfBulk\TAMS.EfBulk.csproj", "{BFD25A8C-C920-4CDA-88A9-E03C2B66C9A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BFD25A8C-C920-4CDA-88A9-E03C2B66C9A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFD25A8C-C920-4CDA-88A9-E03C2B66C9A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFD25A8C-C920-4CDA-88A9-E03C2B66C9A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFD25A8C-C920-4CDA-88A9-E03C2B66C9A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8C6CCDE-63FB-44DB-AA93-2E93EBB3B78A}
+	EndGlobalSection
+EndGlobal

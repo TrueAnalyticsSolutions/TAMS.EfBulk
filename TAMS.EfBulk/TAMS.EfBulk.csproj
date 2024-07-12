@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
+	  <Copyright>True Analytics Manufacturing Solutions, LLC</Copyright>
+	  <PackageTags>EF Core;TAMS;</PackageTags>
+	  <PackageProjectUrl>https://github.com/TrueAnalyticsSolutions/TAMS.EfBulk</PackageProjectUrl>
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <Company>True Analytics Manufacturing Solutions, LLC</Company>
+	  <Product>Entity Framework Bulk Operations</Product>
+	  <Authors>Trais McAllister;</Authors>
+	  <Description>Provides methods for optimized bulk operations in Entity Framework using DataTables.</Description>
+	  <RepositoryUrl>https://github.com/TrueAnalyticsSolutions/TAMS.EfBulk</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+	  <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+	  <Version>0.1</Version>
+	  <IncludeSymbols>True</IncludeSymbols>
+	  <SymbolPackageFormat>symbols.nupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+    <PackageReference Include="System.Data.SqlClient">
+      <Version>4.8.6</Version>
+    </PackageReference>
+	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.32" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+  </ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='net45'">
+		<PackageReference Include="EntityFramework" Version="6.5.1" />
+		<!--<PackageReference Include="Microsoft.EntityFramework.SqlServer" Version="6.5.1" />-->
+	</ItemGroup>
+	
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>
